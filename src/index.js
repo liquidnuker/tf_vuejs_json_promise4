@@ -1,51 +1,15 @@
 import "./styles/main.scss";
 
-const Vue = require("./js/vendor/vue.min.js");
+import {store, vmA, vmB, vmC} from "./js/vue-components";
 import {jsonLoader} from './js/jsonLoader.js';
-import {where} from "underscore";
 import "./js/vendor/jPages.min.js";
+import {jsonFilter} from './js/jsonFilter.js';
+
+
 
 // 
 // ======================================================/
 const jsonUrl = "src/js/ajax/bonsai.json";
-
-// 
-// ======================================================/
-const store = {
-  debug: true,
-  state: {
-    message: "",
-    filteredId: ""
-  }
-};
-
-// 
-// ======================================================/
-const vmA = new Vue({
-  el: "#app",
-  data: {
-    privateState: {},
-    sharedState: store.state,
-    loading: true
-  },
-  methods: {}
-});
-
-const vmB = new Vue({
-  el: "#app2",
-  data: {
-    privateState: {},
-    sharedState: store.state
-  }
-});
-
-const vmC = new Vue({
-  el: "#descriptionBox",
-  data: {
-    privateState: {},
-    sharedState: store.state
-  }
-});
 
 // 
 // ======================================================/
@@ -65,7 +29,7 @@ const showPages = () => {
   });
 };
 
-jsonLoader.preloader();
+// jsonLoader.preloader();
 jsonLoader.getJSON(jsonUrl).then(function (response) {
   store.state.message = response.bonsai;
   vmA.loading = false;
@@ -76,11 +40,13 @@ jsonLoader.getJSON(jsonUrl).then(function (response) {
 (function () {
   const start = () => {
     $(document.body).on("click", "img", function () {
-      jsonLoader.filterId(this.id);
+      jsonFilter.filterId(this.id);
     });
 
     $("#filterSpecies").on("click", function () {
-      jsonLoader.filter("Jukan");
+      jsonFilter.filter("Jukan").then(function() {
+        showPages();
+      });
     });
   };
 

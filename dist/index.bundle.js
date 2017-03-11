@@ -11853,7 +11853,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscor
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function($) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return jsonLoader; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return jsonLoader; });
 var jsonLoader = {
   start: function start(url) {
     return new Promise(function (resolve, reject) {
@@ -11877,37 +11877,8 @@ var jsonLoader = {
   },
   getJSON: function getJSON(url) {
     return jsonLoader.start(url).then(JSON.parse);
-  },
-  filter: function filter(speciesToFilter) {
-    return new Promise(function (resolve, reject) {
-      $("#paginator").jPages("destroy");
-      store.state.message = where(store.state.message, {
-        species: speciesToFilter
-      });
-
-      resolve(store.state.message);
-      // reject(Error("error"));
-    }).then(function (resolved) {
-      // success
-      // console.log(resolved); 
-      // return store.state.message;
-      showPages();
-    }, function (err) {
-      console.log(err); // error
-    });
-  },
-  filterId: function filterId(idToFilter) {
-    store.state.filteredId = where(store.state.message, {
-      id: idToFilter
-    });
-    console.log(store.state.filteredId);
-  },
-  preloader: function preloader() {
-    var spinner = "<div class=\"sk-wave\">\n      <div class=\"sk-rect sk-rect1\"></div>\n      <div class=\"sk-rect sk-rect2\"></div>\n      <div class=\"sk-rect sk-rect3\"></div>\n      <div class=\"sk-rect sk-rect4\"></div>\n      <div class=\"sk-rect sk-rect5\"></div>\n      </div>";
-    document.getElementById("loader").innerHTML = spinner;
   }
 };
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0)))
 
 /***/ }),
 /* 3 */
@@ -14085,14 +14056,14 @@ module.exports = g;
 /* WEBPACK VAR INJECTION */(function($) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__styles_main_scss__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__styles_main_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__styles_main_scss__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__js_jsonLoader_js__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_underscore__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_underscore___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_underscore__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__js_vue_components__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__js_jsonLoader_js__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__js_vendor_jPages_min_js__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__js_vendor_jPages_min_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__js_vendor_jPages_min_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__js_jsonFilter_js__ = __webpack_require__(10);
 
 
-var Vue = __webpack_require__(4);
+
 
 
 
@@ -14100,6 +14071,63 @@ var Vue = __webpack_require__(4);
 // 
 // ======================================================/
 var jsonUrl = "src/js/ajax/bonsai.json";
+
+// 
+// ======================================================/
+var showPages = function showPages() {
+  $("#paginator").jPages({
+    containerID: "galleryContainer",
+    first: "first",
+    previous: "previous",
+    next: "next",
+    last: "last",
+    links: "numeric", // blank || title
+    delay: 0, // to remove fade
+    fallback: 0, // to remove fade
+    startPage: 1,
+    perPage: 10,
+    midRange: 5
+  });
+};
+
+// jsonLoader.preloader();
+__WEBPACK_IMPORTED_MODULE_2__js_jsonLoader_js__["a" /* jsonLoader */].getJSON(jsonUrl).then(function (response) {
+  __WEBPACK_IMPORTED_MODULE_1__js_vue_components__["a" /* store */].state.message = response.bonsai;
+  __WEBPACK_IMPORTED_MODULE_1__js_vue_components__["b" /* vmA */].loading = false;
+}).then(function () {
+  showPages();
+});
+
+(function () {
+  var start = function start() {
+    $(document.body).on("click", "img", function () {
+      __WEBPACK_IMPORTED_MODULE_4__js_jsonFilter_js__["a" /* jsonFilter */].filterId(this.id);
+    });
+
+    $("#filterSpecies").on("click", function () {
+      __WEBPACK_IMPORTED_MODULE_4__js_jsonFilter_js__["a" /* jsonFilter */].filter("Jukan").then(function () {
+        showPages();
+      });
+    });
+  };
+
+  if (document.readyState !== "loading") start();else if (document.addEventListener) document.addEventListener("DOMContentLoaded", start);else document.attachEvent("onreadystatechange", function () {
+    if (document.readyState === "complete") start();
+  });
+})();
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0)))
+
+/***/ }),
+/* 8 */,
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return vmA; });
+/* unused harmony export vmB */
+/* unused harmony export vmC */
+var Vue = __webpack_require__(4);
 
 // 
 // ======================================================/
@@ -14139,47 +14167,49 @@ var vmC = new Vue({
   }
 });
 
-// 
-// ======================================================/
-var showPages = function showPages() {
-  $("#paginator").jPages({
-    containerID: "galleryContainer",
-    first: "first",
-    previous: "previous",
-    next: "next",
-    last: "last",
-    links: "numeric", // blank || title
-    delay: 0, // to remove fade
-    fallback: 0, // to remove fade
-    startPage: 1,
-    perPage: 10,
-    midRange: 5
-  });
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function($) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__vue_components__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_underscore__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_underscore___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_underscore__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return jsonFilter; });
+
+
+
+var jsonFilter = {
+  filter: function filter(speciesToFilter) {
+    return new Promise(function (resolve, reject) {
+      $("#paginator").jPages("destroy");
+      __WEBPACK_IMPORTED_MODULE_0__vue_components__["a" /* store */].state.message = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_underscore__["where"])(__WEBPACK_IMPORTED_MODULE_0__vue_components__["a" /* store */].state.message, {
+        species: speciesToFilter
+      });
+
+      resolve(__WEBPACK_IMPORTED_MODULE_0__vue_components__["a" /* store */].state.message);
+      // reject(Error("error"));
+    }).then(function (resolved) {
+      // success
+      console.log("resolved");
+      return __WEBPACK_IMPORTED_MODULE_0__vue_components__["a" /* store */].state.message;
+    }, function (err) {
+      console.log(err); // error
+    });
+  },
+  filterId: function filterId(idToFilter) {
+    __WEBPACK_IMPORTED_MODULE_0__vue_components__["a" /* store */].state.filteredId = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_underscore__["where"])(__WEBPACK_IMPORTED_MODULE_0__vue_components__["a" /* store */].state.message, {
+      id: idToFilter
+    });
+    console.log(__WEBPACK_IMPORTED_MODULE_0__vue_components__["a" /* store */].state.filteredId);
+  },
+  preloader: function preloader() {
+    var spinner = "<div class=\"sk-wave\">\n      <div class=\"sk-rect sk-rect1\"></div>\n      <div class=\"sk-rect sk-rect2\"></div>\n      <div class=\"sk-rect sk-rect3\"></div>\n      <div class=\"sk-rect sk-rect4\"></div>\n      <div class=\"sk-rect sk-rect5\"></div>\n      </div>";
+    document.getElementById("loader").innerHTML = spinner;
+  }
 };
-
-__WEBPACK_IMPORTED_MODULE_1__js_jsonLoader_js__["a" /* jsonLoader */].preloader();
-__WEBPACK_IMPORTED_MODULE_1__js_jsonLoader_js__["a" /* jsonLoader */].getJSON(jsonUrl).then(function (response) {
-  store.state.message = response.bonsai;
-  vmA.loading = false;
-}).then(function () {
-  showPages();
-});
-
-(function () {
-  var start = function start() {
-    $(document.body).on("click", "img", function () {
-      __WEBPACK_IMPORTED_MODULE_1__js_jsonLoader_js__["a" /* jsonLoader */].filterId(this.id);
-    });
-
-    $("#filterSpecies").on("click", function () {
-      __WEBPACK_IMPORTED_MODULE_1__js_jsonLoader_js__["a" /* jsonLoader */].filter("Jukan");
-    });
-  };
-
-  if (document.readyState !== "loading") start();else if (document.addEventListener) document.addEventListener("DOMContentLoaded", start);else document.attachEvent("onreadystatechange", function () {
-    if (document.readyState === "complete") start();
-  });
-})();
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0)))
 
 /***/ })
