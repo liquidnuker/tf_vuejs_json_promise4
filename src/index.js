@@ -1,6 +1,6 @@
 import "./styles/main.scss";
 
-import {store, vmA, vmB, vmC} from "./js/vue-components";
+import {store, vmA} from "./js/vue-components";
 import {jsonLoader} from './js/jsonLoader.js';
 import {jsonFilter} from './js/jsonFilter.js';
 import {showPages} from "./js/paginator.js";
