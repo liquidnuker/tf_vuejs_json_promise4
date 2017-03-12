@@ -5,6 +5,12 @@ export const jsonFilter = {
   filter: (speciesToFilter) => {
     return new Promise(function (resolve, reject) {
       $("#paginator").jPages("destroy");
+
+      // require.ensure(".js", function(require) {
+      //   console.log("");
+      // }, "bundleName");
+      
+      // debugger
       store.state.message = where(store.state.message, {
         species: speciesToFilter
       });
