@@ -9,6 +9,7 @@ module.exports = {
   context: path.resolve(__dirname, './src'),
   entry: {
     index: './index.js',
+    vendor: ['jquery', 'underscore']
   },
   output: {
     path: path.resolve(__dirname, './dist'),
@@ -44,6 +45,9 @@ module.exports = {
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery'
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
     }),
     extractCSS
   ],
