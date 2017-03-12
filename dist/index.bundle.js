@@ -11877,6 +11877,10 @@ var jsonLoader = {
   },
   getJSON: function getJSON(url) {
     return jsonLoader.start(url).then(JSON.parse);
+  },
+  preloader: function preloader() {
+    var spinner = "<div class=\"sk-wave\">\n      <div class=\"sk-rect sk-rect1\"></div>\n      <div class=\"sk-rect sk-rect2\"></div>\n      <div class=\"sk-rect sk-rect3\"></div>\n      <div class=\"sk-rect sk-rect4\"></div>\n      <div class=\"sk-rect sk-rect5\"></div>\n      </div>";
+    document.getElementById("loader").innerHTML = spinner;
   }
 };
 
@@ -14090,7 +14094,7 @@ var showPages = function showPages() {
   });
 };
 
-// jsonLoader.preloader();
+__WEBPACK_IMPORTED_MODULE_2__js_jsonLoader_js__["a" /* jsonLoader */].preloader();
 __WEBPACK_IMPORTED_MODULE_2__js_jsonLoader_js__["a" /* jsonLoader */].getJSON(jsonUrl).then(function (response) {
   __WEBPACK_IMPORTED_MODULE_1__js_vue_components__["a" /* store */].state.message = response.bonsai;
   __WEBPACK_IMPORTED_MODULE_1__js_vue_components__["b" /* vmA */].loading = false;
@@ -14204,10 +14208,6 @@ var jsonFilter = {
       id: idToFilter
     });
     console.log(__WEBPACK_IMPORTED_MODULE_0__vue_components__["a" /* store */].state.filteredId);
-  },
-  preloader: function preloader() {
-    var spinner = "<div class=\"sk-wave\">\n      <div class=\"sk-rect sk-rect1\"></div>\n      <div class=\"sk-rect sk-rect2\"></div>\n      <div class=\"sk-rect sk-rect3\"></div>\n      <div class=\"sk-rect sk-rect4\"></div>\n      <div class=\"sk-rect sk-rect5\"></div>\n      </div>";
-    document.getElementById("loader").innerHTML = spinner;
   }
 };
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0)))

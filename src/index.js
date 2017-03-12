@@ -5,8 +5,6 @@ import {jsonLoader} from './js/jsonLoader.js';
 import "./js/vendor/jPages.min.js";
 import {jsonFilter} from './js/jsonFilter.js';
 
-
-
 // 
 // ======================================================/
 const jsonUrl = "src/js/ajax/bonsai.json";
@@ -29,7 +27,7 @@ const showPages = () => {
   });
 };
 
-// jsonLoader.preloader();
+jsonLoader.preloader();
 jsonLoader.getJSON(jsonUrl).then(function (response) {
   store.state.message = response.bonsai;
   vmA.loading = false;
