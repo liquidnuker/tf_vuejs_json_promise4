@@ -38,4 +38,4 @@ const vmC = new Vue({
   }
 });
 
-export { store, vmA, vmB, vmC};
+export {store, vmA, vmB, vmC};

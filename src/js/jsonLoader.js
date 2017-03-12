@@ -1,4 +1,4 @@
-export const jsonLoader = {
+const jsonLoader = {
   start: (url) => {
     return new Promise(function (resolve, reject) {
       let req = new XMLHttpRequest();
@@ -33,3 +33,5 @@ export const jsonLoader = {
     document.getElementById("loader").innerHTML = spinner;
   }
 };
+
+export {jsonLoader};
